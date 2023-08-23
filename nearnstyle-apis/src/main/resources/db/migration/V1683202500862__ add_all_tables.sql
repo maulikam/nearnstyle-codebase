@@ -109,28 +109,9 @@ CREATE TABLE ns_user
 
 
 
-CREATE TABLE public.ns_appointment (
-    id BIGSERIAL NOT NULL PRIMARY KEY,
-    created_by integer NOT NULL,
-    created_on timestamp without time zone NOT NULL,
-    modified_by integer,
-    modified_on timestamp without time zone,
-    appointment_date date NOT NULL,
-    appointment_time time without time zone NOT NULL,
-    doctor_id bigint,
-    notes character varying(255),
-    org_id bigint,
-    patient_id bigint,
-    status character varying(255) NOT NULL,
-    CONSTRAINT ns_appointment_doctor_id_fk FOREIGN KEY (doctor_id) REFERENCES public.ns_doctor(id),
-    CONSTRAINT ns_appointment_org_id_fk FOREIGN KEY (org_id) REFERENCES public.ns_salon(id),
-    CONSTRAINT ns_appointment_patient_id_fk FOREIGN KEY (patient_id) REFERENCES public.ns_patient(id)
-);
-
-
 CREATE TABLE public.ns_availability (
     id BIGSERIAL NOT NULL PRIMARY KEY,
-    doctor_id bigint,
+    salon_id bigint,
     day_of_week integer NOT NULL,
     start_time time without time zone NOT NULL,
     end_time time without time zone NOT NULL,
@@ -149,12 +130,11 @@ CREATE TABLE public.ns_availability (
     modified_on timestamp without time zone,
 
     -- Foreign key constraint
-    CONSTRAINT ns_availability_doctor_id_fk FOREIGN KEY (doctor_id) REFERENCES public.ns_doctor(id)
+    CONSTRAINT ns_availability_salon_id_fk FOREIGN KEY (salon_id) REFERENCES public.ns_salon(id)
 );
 
--- Add index for doctor_id for better performance on joins and queries:
-CREATE INDEX idx_ns_availability_doctor_id ON public.ns_availability(doctor_id);
-CREATE INDEX idx_search_vector ON ns_doctor USING gin(search_vector);
+-- Add index for salon_id for better performance on joins and queries:
+CREATE INDEX idx_ns_availability_salon_id ON public.ns_availability(salon_id);
 
 
 
@@ -165,12 +145,12 @@ CREATE TABLE public.ns_review (
     modified_by integer,
     modified_on timestamp without time zone,
     description character varying(1000),
-    doctor_id bigint,
-    patient_id bigint,
+    salon_id bigint,
+    user_id bigint,
     rating integer NOT NULL,
     title character varying(255) NOT NULL,
-    CONSTRAINT ns_review_doctor_id_fk FOREIGN KEY (doctor_id) REFERENCES public.ns_doctor(id),
-    CONSTRAINT ns_review_patient_id_fk FOREIGN KEY (patient_id) REFERENCES public.ns_patient(id)
+    CONSTRAINT ns_review_salon_id_fk FOREIGN KEY (salon_id) REFERENCES public.ns_salon(id),
+    CONSTRAINT ns_review_user_id_fk FOREIGN KEY (user_id) REFERENCES public.ns_user(id)
 );
 
 CREATE TABLE ns_user_otps (
@@ -196,41 +176,3 @@ CREATE TABLE ns_role_features (
     FOREIGN KEY (role_id) REFERENCES ns_role_master(id) ON DELETE CASCADE,
     FOREIGN KEY (feature_id) REFERENCES ns_feature_master(id) ON DELETE CASCADE
 );
-
-CREATE OR REPLACE FUNCTION update_search_vector()
-RETURNS TRIGGER AS $$
-DECLARE
-    user_first_name VARCHAR(100);
-    user_last_name VARCHAR(100);
-    salon_name VARCHAR(100);
-BEGIN
-    -- Get specialization name
-    SELECT name INTO specialization_name
-    FROM public.ns_doc_specialization
-    WHERE id = NEW.specialization_id;
-
-    -- Get user's first and last name
-    SELECT first_name, last_name INTO user_first_name, user_last_name
-    FROM public.ns_user
-    WHERE id = NEW.user_id;
-
-    -- Get salon name
-    SELECT name INTO salon_name
-    FROM public.ns_salon
-    WHERE id = NEW.org_id;
-
-    NEW.search_vector := to_tsvector('english',
-        COALESCE(specialization_name, 'MBBS') || ' ' ||
-        COALESCE(NEW.qualification, 'MBBS') || ' ' ||
-        COALESCE(user_first_name, '') || ' ' ||
-        COALESCE(user_last_name, '') || ' ' ||
-        COALESCE(salon_name, '')
-    );
-
-    RETURN NEW;
-END
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER tr_update_search_vector
-BEFORE INSERT OR UPDATE ON ns_doctor
-FOR EACH ROW EXECUTE FUNCTION update_search_vector();
