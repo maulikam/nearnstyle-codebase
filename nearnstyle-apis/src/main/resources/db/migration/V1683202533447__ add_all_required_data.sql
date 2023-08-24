@@ -5,19 +5,6 @@ INSERT INTO oauth_client_details(
     VALUES ('nearnstyle-client', '', 'nearnstyle-secret', 'write', 'password,refresh_token', '', '', '{}', '');
 
 
-INSERT INTO public.ns_role_master (id, "name", state, created_by, created_on, modified_by, modified_on)
-VALUES(1,'SUPER ADMIN', 'ACTIVE', -1, '2022-11-23 22:48:08.500', NULL, NULL);
-
-INSERT INTO public.ns_role_master (id, "name", state, created_by, created_on, modified_by, modified_on)
-VALUES(2,'ADMIN', 'ACTIVE', -1, '2022-11-23 22:48:08.500', NULL, NULL);
-
-INSERT INTO public.ns_role_master (id, "name", state, created_by, created_on, modified_by, modified_on)
-VALUES(3,'SALON ADMIN', 'ACTIVE', -1, '2022-11-23 22:48:08.500', NULL, NULL);
-
-INSERT INTO public.ns_role_master (id, "name", state, created_by, created_on, modified_by, modified_on)
-VALUES(4,'USER', 'ACTIVE', -1, '2022-11-23 22:48:08.500', NULL, NULL);
-
-
 INSERT INTO ns_salon (name, code, address, ad_state, ad_district, ad_city, ad_pincode, state,  latitude, longitude, created_by, created_on, modified_by, modified_on)
 VALUES ('RA', 'AR001', '1 Street, Gandhinagar', 'Gujarat', 'Gandhinagar', 'Gandhinagar', '382010', 'ACTIVE', 72.6369, 23.2156, 1, NOW(), 1, NOW());
 

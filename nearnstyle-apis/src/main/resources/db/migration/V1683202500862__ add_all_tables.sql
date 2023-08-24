@@ -44,16 +44,31 @@ CREATE TABLE users (
 );
 
 
+CREATE TABLE locations (
+    location_id BIGSERIAL PRIMARY KEY,
+    street VARCHAR(255) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    state VARCHAR(100) NOT NULL,
+    country VARCHAR(100) NOT NULL,
+    postal_code VARCHAR(10) NOT NULL,
+    latitude NUMERIC(9,6) NOT NULL,
+    longitude NUMERIC(9,6) NOT NULL
+);
+
+
 CREATE TABLE salons (
     salon_id BIGSERIAL PRIMARY KEY,
     salon_name VARCHAR(255) NOT NULL UNIQUE,
-    address VARCHAR(500) NOT NULL,
     phone_number VARCHAR(50),
     description VARCHAR(500),
     is_active BOOLEAN DEFAULT TRUE,
     facilities VARCHAR(1000),
-    owner_name VARCHAR(255)
+    owner_name VARCHAR(255),
+    location_id BIGINT REFERENCES locations(location_id),
+    CONSTRAINT fk_location FOREIGN KEY (location_id) REFERENCES locations(location_id)
 );
+
+
 
 
 -- Create indices for the unique and frequently accessed columns for improved search performance:
@@ -111,6 +126,30 @@ CREATE TABLE operating_hours (
     closing_time TIME NOT NULL,
     UNIQUE(salon_id, day)  -- Ensuring that for each salon, there's only one set of operating hours per day
 );
+
+CREATE TABLE notifications (
+    notification_id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL REFERENCES users(user_id),
+    salon_id BIGINT REFERENCES salons(salon_id),
+    message VARCHAR(500) NOT NULL,
+    date_time TIMESTAMP NOT NULL,
+    status VARCHAR(20) NOT NULL CHECK (status IN ('SENT', 'FAILED', 'PENDING')),
+    CONSTRAINT fk_notification_user FOREIGN KEY (user_id) REFERENCES users(user_id),
+    CONSTRAINT fk_notification_salon FOREIGN KEY (salon_id) REFERENCES salons(salon_id)
+);
+
+CREATE TABLE payments (
+    payment_id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL REFERENCES users(user_id),
+    salon_id BIGINT NOT NULL REFERENCES salons(salon_id),
+    amount DECIMAL(20,2) NOT NULL,
+    date_time TIMESTAMP NOT NULL,
+    payment_method VARCHAR(30) NOT NULL CHECK (payment_method IN ('CREDIT_CARD', 'IN_APP_WALLET', 'UPI', 'NETBANKING', 'GATEWAY')),
+    status VARCHAR(20) NOT NULL CHECK (status IN ('PENDING', 'COMPLETED', 'FAILED')),
+    CONSTRAINT fk_payment_user FOREIGN KEY (user_id) REFERENCES users(user_id),
+    CONSTRAINT fk_payment_salon FOREIGN KEY (salon_id) REFERENCES salons(salon_id)
+);
+
 
 
 CREATE TABLE ns_user_otps (
