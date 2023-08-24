@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "hc_user_otps")
+@Table(name = "ns_user_otps")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "hc_role_master")
+@Table(name = "ns_role_master")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -38,7 +38,7 @@ public class Role extends EntityAuditInfo implements Serializable {
 
     @ManyToMany
     @JoinTable(
-            name = "hc_role_features",
+            name = "ns_role_features",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "feature_id"))
     private List<Feature> features;

@@ -117,7 +117,7 @@ public class UserServiceImpl implements UserService {
         try {
             userDTO = UserMapper.convertUserMasterToDto(userRepository.save(user));
         } catch (DataIntegrityViolationException ex) {
-            if (ex.getMessage().contains("uk_hc_user_email_id")) {
+            if (ex.getMessage().contains("uk_ns_user_email_id")) {
                 throw new IllegalArgumentException("User with the provided email ID already exists");
             }
             throw ex;

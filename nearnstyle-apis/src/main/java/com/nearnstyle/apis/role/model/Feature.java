@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "hc_feature_master")
+@Table(name = "ns_feature_master")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

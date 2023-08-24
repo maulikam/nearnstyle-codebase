@@ -2,7 +2,7 @@ INSERT INTO oauth_client_details(
             client_id, resource_ids, client_secret, scope, authorized_grant_types,
             web_server_redirect_uri, authorities,
             additional_information, autoapprove)
-    VALUES ('nearnstyle-client', '', 'hnearnstyle-secret', 'write', 'password,refresh_token', '', '', '{}', '');
+    VALUES ('nearnstyle-client', '', 'nearnstyle-secret', 'write', 'password,refresh_token', '', '', '{}', '');
 
 
 INSERT INTO public.ns_role_master (id, "name", state, created_by, created_on, modified_by, modified_on)

@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "hc_user")
+@Table(name = "ns_user")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
