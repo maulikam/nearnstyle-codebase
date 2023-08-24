@@ -36,5 +36,5 @@ jobs:
       - name: Delete old container
         run: docker rm -f nearnstyle-apis-container
       - name: Run docker container
-        run: docker run -d -p 8080:8080 --name nearnstyle-apis-container mightythor99/nearnstyle-codebase
+        run: docker run -d -p 8082:8082 --name nearnstyle-apis-container mightythor99/nearnstyle-codebase
 
