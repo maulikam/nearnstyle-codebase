@@ -16,11 +16,14 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Build Project
-        run: mvn clean install -DskipTests
+        run: |
+          cd nearnstyle-apis
+          mvn clean install -DskipTests
       - name: Login to Docker Hub
         run: docker login -u ${{secrets.DOCKER_USERNAME}} -p {{secrets.DOCKER_PASSWORD}}
       - name: Build Docker image
-        run: docker build -t maulikam/nearnstyle-codebase
+        run: |
+          docker build -t maulikam/nearnstyle-codebase .
       - name: Publish image to docker hub
         run: docker push maulikam/nearnstyle-codebase:latest
 
