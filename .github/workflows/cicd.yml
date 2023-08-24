@@ -23,18 +23,18 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
       - name: Build Docker image
         run: |
-          docker build -t maulikam/nearnstyle-codebase .
+          docker build -t mightythor99/nearnstyle-codebase .
       - name: Publish image to docker hub
-        run: docker push maulikam/nearnstyle-codebase:latest
+        run: docker push mightythor99/nearnstyle-codebase:latest
 
   deploy:
     needs: build
     runs-on: [aws-ec2]
     steps:
       - name: Pull image from docker hub
-        run: docker pull maulikam/nearnstyle-codebase
+        run: docker pull mightythor99/nearnstyle-codebase
       - name: Delete old container
         run: docker rm -f nearnstyle-apis-container
       - name: Run docker container
-        run: docker run -d -p 8080:8080 --name nearnstyle-apis-container maulikam/nearnstyle-codebase
+        run: docker run -d -p 8080:8080 --name nearnstyle-apis-container mightythor99/nearnstyle-codebase
 
