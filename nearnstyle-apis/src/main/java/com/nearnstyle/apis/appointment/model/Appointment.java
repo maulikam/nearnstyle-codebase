@@ -1,5 +1,6 @@
 package com.nearnstyle.apis.appointment.model;
 
+import com.nearnstyle.apis.salon.model.Salon;
 import com.nearnstyle.apis.service.model.Service;
 import com.nearnstyle.apis.user.model.User;
 import lombok.AllArgsConstructor;
@@ -8,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
-
 @Entity
 @Table(name = "appointments")
 @Getter
@@ -29,6 +29,10 @@ public class Appointment {
     @JoinColumn(name = "serviceId", nullable = false)
     private Service service;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "salonId", nullable = false) // This line establishes the relationship with Salon
+    private Salon salon; // Use the Salon entity instead of just the salonId
+
     @Column(nullable = false)
     private LocalDateTime appointmentDate;
 
@@ -38,9 +42,6 @@ public class Appointment {
 
     @Column(length = 200)
     private String specialRequests;
-
-    @Column(nullable = false)
-    private Long salonId;
 
     public enum AppointmentStatus {
         CONFIRMED, COMPLETED, CANCELED
