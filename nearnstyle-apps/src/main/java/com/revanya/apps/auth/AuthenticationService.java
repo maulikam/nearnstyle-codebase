@@ -1,5 +1,6 @@
 package com.revanya.apps.auth;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.POST;
