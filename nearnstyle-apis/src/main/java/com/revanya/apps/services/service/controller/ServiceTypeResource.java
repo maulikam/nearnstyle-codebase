@@ -4,6 +4,7 @@ package com.revanya.apps.services.service.controller;
 import com.revanya.apps.services.service.dto.ServiceTypeDTO;
 import com.revanya.apps.services.service.service.ServiceTypeService;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -13,6 +14,7 @@ import java.util.List;
 @Path("/service-types")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@RolesAllowed({"Admin", "Salon Admin", "User"})
 public class ServiceTypeResource {
 
     @Inject

@@ -3,6 +3,8 @@ package com.revanya.apps.services.salon.controller;
 
 import com.revanya.apps.services.salon.dto.SalonDTO;
 import com.revanya.apps.services.salon.service.SalonService;
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -10,6 +12,7 @@ import jakarta.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/salons")
+@RolesAllowed({"Admin", "Salon Admin", "User"})
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class SalonResource {
@@ -38,6 +41,7 @@ public class SalonResource {
     // E.g., getSalonsByCity, getSalonsByState, and so forth...
 
     @POST
+    @PermitAll
     public Response addSalon(SalonDTO salonDTO) {
         salonService.addSalon(salonDTO);
         return Response.status(Response.Status.CREATED).build();

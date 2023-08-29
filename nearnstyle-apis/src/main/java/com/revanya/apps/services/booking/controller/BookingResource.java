@@ -2,6 +2,7 @@ package com.revanya.apps.services.booking.controller;
 
 import com.revanya.apps.services.booking.dto.BookingDTO;
 import com.revanya.apps.services.booking.service.BookingService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
@@ -11,6 +12,7 @@ import java.util.List;
 @Path("/bookings")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@RolesAllowed({"Admin", "Salon Admin", "User"})
 public class BookingResource {
 
     @Inject

@@ -3,6 +3,8 @@ package com.revanya.apps.services.user.controller;
 
 import com.revanya.apps.services.user.dto.UserDTO;
 import com.revanya.apps.services.user.service.UserService;
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -14,6 +16,7 @@ import java.util.List;
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@RolesAllowed({"Admin", "Salon Admin", "User"})
 public class UserController {
 
     @Inject
@@ -57,6 +60,7 @@ public class UserController {
         return userService.findByRoleName(roleName);
     }
 
+    @PermitAll
     @POST
     public Response createUser(UserDTO userDTO) {
         UserDTO createdUser = userService.createUser(userDTO);

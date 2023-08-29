@@ -2,6 +2,7 @@ package com.revanya.apps.services.geolocation.controller;
 
 import com.revanya.apps.services.geolocation.dto.GeoLocationDTO;
 import com.revanya.apps.services.geolocation.service.GeoLocationService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.*;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
@@ -11,6 +12,7 @@ import java.util.List;
 @Path("/geolocations")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@RolesAllowed({"Admin", "Salon Admin", "User"})
 public class GeoLocationResource {
 
     @Inject
