@@ -1,4 +1,4 @@
-package com.revanya.apps.auth;
+package com.revanya.apps.services.authentication;
 
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -32,10 +32,15 @@ public class OTPService {
     }
 
     @Transactional
-    public boolean validateOtp(String mobileNumber, String otp) {
+    public OtpEntity validateOtp(String mobileNumber, String otp) {
         OtpEntity otpEntity = otpRepository.findByMobileNumber(mobileNumber);
-        return otpEntity != null && otpEntity.getOtp().equals(otp);
+        if (otpEntity != null && otpEntity.getOtp().equals(otp)) {
+            return otpEntity;
+        } else {
+            return null;
+        }
     }
+
 
     @Transactional
     public void clearOtp(String mobileNumber) {

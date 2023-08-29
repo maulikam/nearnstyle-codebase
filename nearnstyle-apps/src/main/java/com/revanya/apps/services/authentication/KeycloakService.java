@@ -1,4 +1,4 @@
-package com.revanya.apps.auth;
+package com.revanya.apps.services.authentication;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;

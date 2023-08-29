@@ -1,4 +1,4 @@
-package com.revanya.apps.auth;
+package com.revanya.apps.services.authentication;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import jakarta.enterprise.context.ApplicationScoped;
