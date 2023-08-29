@@ -1,4 +1,4 @@
-package com.revanya.apps.services.salon.service;
+package com.revanya.apps.services.salon.service.repositories;
 
 
 import com.revanya.apps.services.salon.entities.Salon;

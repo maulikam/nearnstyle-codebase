@@ -4,6 +4,7 @@ import com.revanya.apps.services.salon.dto.SalonDTO;
 import com.revanya.apps.services.salon.entities.Salon;
 
 import com.revanya.apps.services.salon.mappers.SalonMapper;
+import com.revanya.apps.services.salon.service.repositories.SalonRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import java.util.List;

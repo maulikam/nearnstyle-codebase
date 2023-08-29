@@ -1,4 +1,4 @@
-package com.revanya.apps.services.user.service;
+package com.revanya.apps.services.user.service.repositories;
 
 import com.revanya.apps.services.user.entities.User;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;

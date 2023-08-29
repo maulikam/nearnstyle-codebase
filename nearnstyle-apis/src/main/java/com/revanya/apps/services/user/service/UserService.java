@@ -4,6 +4,7 @@ package com.revanya.apps.services.user.service;
 import com.revanya.apps.services.user.dto.UserDTO;
 import com.revanya.apps.services.user.entities.User;
 import com.revanya.apps.services.user.mappers.UserMapper;
+import com.revanya.apps.services.user.service.repositories.UserRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
