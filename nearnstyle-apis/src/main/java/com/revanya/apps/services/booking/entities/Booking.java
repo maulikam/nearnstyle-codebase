@@ -3,10 +3,12 @@ package com.revanya.apps.services.booking.entities;
 import com.revanya.apps.services.salon.entities.Salon;
 import com.revanya.apps.services.service.entities.Service;
 import com.revanya.apps.services.user.entities.User;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -15,7 +17,7 @@ import java.util.Objects;
 @Setter
 @Entity
 @Table(name = "bookings")
-public class Booking {
+public class Booking extends PanacheEntityBase implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

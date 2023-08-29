@@ -1,9 +1,12 @@
 package com.revanya.apps.services.service.entities;
 
 import com.revanya.apps.services.salon.entities.Salon;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
@@ -11,7 +14,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "service_types")
-public class ServiceType {
+public class ServiceType  extends PanacheEntityBase implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

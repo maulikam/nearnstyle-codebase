@@ -6,12 +6,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Date;
 @Entity
 @Getter
 @Setter
 @Table(name = "otp")
-public class OtpEntity extends PanacheEntity {
+public class OtpEntity extends PanacheEntity implements Serializable {
 
     @Column(unique = true, nullable = false)
     private String mobileNumber;

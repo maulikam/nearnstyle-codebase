@@ -1,6 +1,7 @@
 package com.revanya.apps.services.authentication;
 
-import com.revanya.apps.services.user.entities.User;
+import com.revanya.apps.services.user.dto.UserDTO;
+import com.revanya.apps.services.user.service.UserService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.POST;
@@ -15,6 +16,9 @@ public class AuthenticationService {
 
     @Inject
     KeycloakService keycloakService;  // A service that communicates with Keycloak
+
+    @Inject
+    UserService userService; // A service that handles User operations
 
     @POST
     @Path("/request-otp")
@@ -31,7 +35,7 @@ public class AuthenticationService {
         OtpEntity otpEntity = otpService.validateOtp(mobileNumber, otp);
 
         if (otpEntity != null) {
-            User existingUser = userRepository.findByMobileNumber(mobileNumber);
+            UserDTO existingUser = userService.findByMobileNumber(mobileNumber);
 
             if (existingUser != null) {
                 // If user exists with this mobile number, generate a Keycloak token for the user

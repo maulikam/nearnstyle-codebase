@@ -2,16 +2,19 @@ package com.revanya.apps.services.service.entities;
 
 
 import com.revanya.apps.services.booking.entities.Booking;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
 
 
 @Getter
 @Setter
 @Entity
 @Table(name = "services")
-public class Service {
+public class Service extends PanacheEntityBase implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

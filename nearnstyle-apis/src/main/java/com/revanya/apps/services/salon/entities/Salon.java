@@ -4,8 +4,11 @@ import com.revanya.apps.services.booking.entities.Booking;
 import com.revanya.apps.services.geolocation.entities.GeoLocation;
 import com.revanya.apps.services.review.entities.Review;
 import com.revanya.apps.services.service.entities.ServiceType;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +16,7 @@ import java.util.Objects;
 @Setter
 @Entity
 @Table(name = "salons")
-public class Salon {
+public class Salon  extends PanacheEntityBase implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

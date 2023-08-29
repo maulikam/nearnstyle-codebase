@@ -2,9 +2,11 @@ package com.revanya.apps.services.geolocation.entities;
 
 import com.revanya.apps.services.salon.entities.Salon;
 import com.revanya.apps.services.user.entities.User;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -13,7 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GeoLocation {
+public class GeoLocation  extends PanacheEntityBase implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
