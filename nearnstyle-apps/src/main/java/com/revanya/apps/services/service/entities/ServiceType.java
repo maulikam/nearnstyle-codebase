@@ -1,5 +1,6 @@
 package com.revanya.apps.services.service.entities;
 
+import com.revanya.apps.services.salon.entities.Salon;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,6 +36,10 @@ public class ServiceType {
     // Services related to this type
     @OneToMany(mappedBy = "serviceType", cascade = CascadeType.ALL)
     private Set<Service> services;
+
+    @ManyToOne
+    @JoinColumn(name = "salon_id", nullable = false)
+    private Salon salon;
 
     @Override
     public boolean equals(Object o) {

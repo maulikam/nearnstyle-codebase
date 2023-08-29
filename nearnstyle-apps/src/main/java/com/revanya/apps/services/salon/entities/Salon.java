@@ -1,6 +1,8 @@
 package com.revanya.apps.services.salon.entities;
 
 import com.revanya.apps.services.booking.entities.Booking;
+import com.revanya.apps.services.geolocation.entities.GeoLocation;
+import com.revanya.apps.services.review.entities.Review;
 import com.revanya.apps.services.service.entities.ServiceType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -41,6 +43,17 @@ public class Salon {
     // List of available services
     @OneToMany(mappedBy = "salon", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ServiceType> serviceTypes;
+
+    @OneToMany(mappedBy = "salon", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Review> reviews;
+
+    @OneToOne
+    @JoinColumn(name = "location_id")
+    private GeoLocation location;
+
+    @ManyToOne
+    @JoinColumn(name = "service_area_id")
+    private GeoLocation serviceArea;
 
     // Working hours
     private String openingHours;

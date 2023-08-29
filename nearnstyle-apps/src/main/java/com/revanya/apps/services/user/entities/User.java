@@ -1,6 +1,7 @@
 package com.revanya.apps.services.user.entities;
 
 import com.revanya.apps.services.booking.entities.Booking;
+import com.revanya.apps.services.geolocation.entities.GeoLocation;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -53,6 +54,10 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Booking> bookings;
+
+    @OneToOne
+    @JoinColumn(name = "location_id")
+    private GeoLocation location;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
