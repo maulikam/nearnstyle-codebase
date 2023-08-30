@@ -17,24 +17,22 @@ public class ServiceTypeService {
     @Inject
     ServiceTypeRepository serviceTypeRepository;
 
-    @Inject
-    ServiceTypeMapper serviceTypeMapper;
 
     public ServiceTypeDTO getServiceType(Long id) {
         ServiceType serviceType = serviceTypeRepository.findById(id);
-        return serviceTypeMapper.toDTO(serviceType);
+        return ServiceTypeMapper.INSTANCE.toDTO(serviceType);
     }
 
     public List<ServiceTypeDTO> getAllServiceTypes() {
         return serviceTypeRepository.listAll().stream()
-                .map(serviceTypeMapper::toDTO)
+                .map(ServiceTypeMapper.INSTANCE::toDTO)
                 .collect(Collectors.toList());
     }
 
     public ServiceTypeDTO createServiceType(ServiceTypeDTO serviceTypeDTO) {
-        ServiceType serviceType = serviceTypeMapper.toEntity(serviceTypeDTO);
+        ServiceType serviceType = ServiceTypeMapper.INSTANCE.toEntity(serviceTypeDTO);
         serviceTypeRepository.persist(serviceType);
-        return serviceTypeMapper.toDTO(serviceType);
+        return ServiceTypeMapper.INSTANCE.toDTO(serviceType);
     }
 
     public void deleteServiceType(Long id) {

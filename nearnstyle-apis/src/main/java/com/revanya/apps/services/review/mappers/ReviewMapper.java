@@ -2,11 +2,13 @@ package com.revanya.apps.services.review.mappers;
 
 import com.revanya.apps.services.review.dto.ReviewDTO;
 import com.revanya.apps.services.review.entities.Review;
+import jakarta.inject.Singleton;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "jakarta")
+@Singleton
 public interface ReviewMapper {
 
     ReviewMapper INSTANCE = Mappers.getMapper(ReviewMapper.class);

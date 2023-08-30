@@ -17,28 +17,26 @@ public class ReviewService {
     @Inject
     ReviewRepository reviewRepository;
 
-    @Inject
-    ReviewMapper reviewMapper;
 
     public ReviewDTO getReview(Long id) {
         Review review = reviewRepository.findById(id);
         if (review == null) {
             throw new IllegalStateException("Review not found for id: " + id);
         }
-        return reviewMapper.toDTO(review);
+        return ReviewMapper.INSTANCE.toDTO(review);
     }
 
     public List<ReviewDTO> getAllReviews() {
         List<Review> reviews = reviewRepository.listAll();
         return reviews.stream()
-                .map(reviewMapper::toDTO)
+                .map(ReviewMapper.INSTANCE::toDTO)
                 .collect(Collectors.toList());
     }
 
     public ReviewDTO createReview(ReviewDTO reviewDTO) {
-        Review review = reviewMapper.toEntity(reviewDTO);
+        Review review = ReviewMapper.INSTANCE.toEntity(reviewDTO);
         reviewRepository.persist(review);
-        return reviewMapper.toDTO(review);
+        return ReviewMapper.INSTANCE.toDTO(review);
     }
 
     public void deleteReview(Long id) {
@@ -55,10 +53,10 @@ public class ReviewService {
         if (existingReview == null) {
             throw new IllegalStateException("Review not found for id: " + id);
         }
-        Review reviewToUpdate = reviewMapper.toEntity(reviewDTO);
+        Review reviewToUpdate = ReviewMapper.INSTANCE.toEntity(reviewDTO);
         reviewToUpdate.setId(id); // Ensure ID is retained
         reviewRepository.updateReview(reviewToUpdate);
-        return reviewMapper.toDTO(reviewToUpdate);
+        return ReviewMapper.INSTANCE.toDTO(reviewToUpdate);
     }
 
     // ... Add other specific methods for Review as required ...

@@ -18,7 +18,7 @@ jobs:
       - name: Build Project
         run: |
           cd nearnstyle-apis
-          mvn clean install -DskipTests
+          mvn clean package -DskipTests -Pnative # This part is changed for Quarkus
       - name: Login to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
       - name: Build Docker image
@@ -31,33 +31,18 @@ jobs:
     needs: build
     runs-on: [aws-ec2]
     steps:
-      - name: Pull Keycloak image from docker hub
-        run: docker pull jboss/keycloak
       - name: Pull image from docker hub
         run: docker pull mightythor99/nearnstyle-codebase
-      - name: Delete old Keycloak container
-        run: docker rm -f keycloak-container || true
       - name: Delete old container
         run: docker rm -f nearnstyle-apis-container || true
-      - name: Run Keycloak docker container
-        run: |
-          docker run -d -p 8080:8080 \
-            -e KEYCLOAK_USER=${{ secrets.KEYCLOAK_USER }} \
-            -e KEYCLOAK_PASSWORD=${{ secrets.KEYCLOAK_PASSWORD }} \
-            -e DB_VENDOR=postgres \
-            -e DB_ADDR=${{ secrets.DB_HOST }} \
-            -e DB_DATABASE=${{ secrets.DB_NAME }} \
-            -e DB_USER=${{ secrets.DB_USER }} \
-            -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
-            --name keycloak-container jboss/keycloak
-      - name: Check Keycloak health
-        run: |
-          for i in {1..30}; do
-              if curl -f http://localhost:8080/auth/; then
-                  break
-              fi
-              echo "Waiting for Keycloak to be ready..."
-              sleep 10
-          done
       - name: Run docker container
-        run: docker run -d -p 8082:8082 --name nearnstyle-apis-container mightythor99/nearnstyle-codebase
+        run: |
+          docker run -d -p 8082:8082 \
+          -e DATABASE_USERNAME=${{ secrets.DB_USERNAME }} \
+          -e DATABASE_PASSWORD=${{ secrets.DB_PASSWORD }} \
+          -e DATABASE_URL=${{ secrets.DB_URL }} \
+          -e OIDC_SERVER_URL=${{ secrets.OIDC_SERVER_URL }} \
+          -e OIDC_CLIENT_ID=${{ secrets.OIDC_CLIENT_ID }} \
+          -e OIDC_CLIENT_SECRET=${{ secrets.OIDC_CLIENT_SECRET }} \
+          -e HTTP_PORT=${{ secrets.HTTP_PORT }} \
+          --name nearnstyle-apis-container mightythor99/nearnstyle-codebase

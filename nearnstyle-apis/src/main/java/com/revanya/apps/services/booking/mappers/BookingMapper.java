@@ -3,15 +3,16 @@ package com.revanya.apps.services.booking.mappers;
 import com.revanya.apps.services.booking.dto.BookingDTO;
 import com.revanya.apps.services.booking.entities.Booking;
 import com.revanya.apps.services.service.entities.Service;
+import jakarta.inject.Singleton;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Mapper
+@Mapper(componentModel = "jakarta")
+@Singleton
 public interface BookingMapper {
 
     BookingMapper INSTANCE = Mappers.getMapper(BookingMapper.class);
