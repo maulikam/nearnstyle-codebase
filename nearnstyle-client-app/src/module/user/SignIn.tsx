@@ -10,12 +10,13 @@ import {
     Colors,
 } from 'react-native/Libraries/NewAppScreen';
 import { useUserSignIn } from '../../services/user/useUserSignIn';
+
 function SignIn(): JSX.Element {
     const [mobileNumber, setMobileNumber] = useState('');
     const isDarkMode = useColorScheme() === 'dark';
 
     const userSignIn = useUserSignIn();
-    console.log(userSignIn)
+    console.log(userSignIn.error)
     const onContintueClick = () => {
         userSignIn.mutate({ mobileNumber: parseInt(mobileNumber) })
     }

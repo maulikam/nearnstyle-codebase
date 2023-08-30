@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "nearnstyleClientApp.app"
-               BlueprintName = "nearnstyleClientApp"
-               ReferencedContainer = "container:nearnstyleClientApp.xcodeproj">
+               BuildableName = "nearnstyleclientapp.app"
+               BlueprintName = "nearnstyleclientapp"
+               ReferencedContainer = "container:nearnstyleclientapp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "nearnstyleClientAppTests.xctest"
-               BlueprintName = "nearnstyleClientAppTests"
-               ReferencedContainer = "container:nearnstyleClientApp.xcodeproj">
+               BuildableName = "nearnstyleclientappTests.xctest"
+               BlueprintName = "nearnstyleclientappTests"
+               ReferencedContainer = "container:nearnstyleclientapp.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "nearnstyleClientApp.app"
-            BlueprintName = "nearnstyleClientApp"
-            ReferencedContainer = "container:nearnstyleClientApp.xcodeproj">
+            BuildableName = "nearnstyleclientapp.app"
+            BlueprintName = "nearnstyleclientapp"
+            ReferencedContainer = "container:nearnstyleclientapp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "nearnstyleClientApp.app"
-            BlueprintName = "nearnstyleClientApp"
-            ReferencedContainer = "container:nearnstyleClientApp.xcodeproj">
+            BuildableName = "nearnstyleclientapp.app"
+            BlueprintName = "nearnstyleclientapp"
+            ReferencedContainer = "container:nearnstyleclientapp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
