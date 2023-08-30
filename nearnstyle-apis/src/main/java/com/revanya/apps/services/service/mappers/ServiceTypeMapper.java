@@ -5,18 +5,22 @@ import com.revanya.apps.services.service.entities.Service;
 import com.revanya.apps.services.service.entities.ServiceType;
 import com.revanya.apps.services.service.service.ServiceService;
 import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import org.mapstruct.Mapper;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.factory.Mappers;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
-@Mapper(uses = {ServiceMapper.class})
+@Mapper(componentModel = "jakarta", uses = {ServiceMapper.class})
+@Singleton
 public abstract class ServiceTypeMapper {
+
+    public static ServiceTypeMapper INSTANCE = Mappers.getMapper(ServiceTypeMapper.class);
 
     @Inject
     ServiceService serviceService;  // Inject the service

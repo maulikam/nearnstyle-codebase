@@ -3,11 +3,13 @@ package com.revanya.apps.services.salon.mappers;
 
 import com.revanya.apps.services.salon.dto.SalonDTO;
 import com.revanya.apps.services.salon.entities.Salon;
+import jakarta.inject.Singleton;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "cdi")
+@Mapper(componentModel = "jakarta")
+@Singleton
 public interface SalonMapper {
 
     SalonMapper INSTANCE = Mappers.getMapper(SalonMapper.class);

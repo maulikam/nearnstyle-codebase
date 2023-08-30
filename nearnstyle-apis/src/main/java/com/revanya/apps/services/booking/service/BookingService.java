@@ -36,12 +36,10 @@ public class BookingService {
     @Inject
     ServiceRepository serviceRepository;
 
-    @Inject
-    BookingMapper bookingMapper;
 
     @Transactional
     public BookingDTO createBooking(BookingDTO bookingDTO) {
-        Booking booking = bookingMapper.toEntity(bookingDTO);
+        Booking booking = BookingMapper.INSTANCE.toEntity(bookingDTO);
 
         Optional<User> userOptional = userRepository.findByIdOptional(bookingDTO.getUserId());
         User user = userOptional.orElseThrow(() -> new IllegalArgumentException("User not found"));
@@ -57,7 +55,7 @@ public class BookingService {
 
         bookingRepository.persist(booking); // Persist the booking
 
-        return bookingMapper.toDTO(booking); // Return the DTO representation of the saved booking
+        return BookingMapper.INSTANCE.toDTO(booking); // Return the DTO representation of the saved booking
     }
 
     @Transactional
@@ -65,7 +63,7 @@ public class BookingService {
         Booking existingBooking = bookingRepository.findByIdOptional(bookingId)
                 .orElseThrow(() -> new IllegalArgumentException("Booking not found"));
 
-        Booking updatedBooking = bookingMapper.toEntity(bookingDTO);
+        Booking updatedBooking = BookingMapper.INSTANCE.toEntity(bookingDTO);
 
         // Update booking properties
         existingBooking.setBookingDate(updatedBooking.getBookingDate());
@@ -81,7 +79,7 @@ public class BookingService {
         }
 
         bookingRepository.persist(existingBooking); // Use persist instead of merge
-        return bookingMapper.toDTO(existingBooking);
+        return BookingMapper.INSTANCE.toDTO(existingBooking);
     }
 
 
@@ -98,7 +96,7 @@ public class BookingService {
         Optional<Booking> bookingOptional = bookingRepository.findByIdOptional(bookingId);
         Booking booking = bookingOptional.orElseThrow(() -> new IllegalArgumentException("Booking not found"));
 
-        return bookingMapper.toDTO(booking);
+        return BookingMapper.INSTANCE.toDTO(booking);
     }
 
 
@@ -106,7 +104,7 @@ public class BookingService {
         List<Booking> bookings = bookingRepository.listAll();
 
         return bookings.stream()
-                .map(bookingMapper::toDTO)
+                .map(BookingMapper.INSTANCE::toDTO)
                 .collect(Collectors.toList());
     }
 

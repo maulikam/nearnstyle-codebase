@@ -15,63 +15,60 @@ public class SalonService {
 
     @Inject
     SalonRepository salonRepository;
-
-    @Inject
-    SalonMapper salonMapper; // Assuming you've created a mapper similar to the UserMapper
-
+ 
     public SalonDTO getSalonById(Long id) {
-        return salonMapper.toDTO(salonRepository.findById(id));
+        return SalonMapper.INSTANCE.toDTO(salonRepository.findById(id));
     }
 
     public List<SalonDTO> getSalonsByName(String name) {
-        return salonRepository.findByName(name).stream().map(salonMapper::toDTO).collect(Collectors.toList());
+        return salonRepository.findByName(name).stream().map(SalonMapper.INSTANCE::toDTO).collect(Collectors.toList());
     }
 
     public List<SalonDTO> getSalonsByCity(String city) {
-        return salonRepository.findByCity(city).stream().map(salonMapper::toDTO).collect(Collectors.toList());
+        return salonRepository.findByCity(city).stream().map(SalonMapper.INSTANCE::toDTO).collect(Collectors.toList());
     }
 
     public List<SalonDTO> getSalonsByState(String state) {
-        return salonRepository.findByState(state).stream().map(salonMapper::toDTO).collect(Collectors.toList());
+        return salonRepository.findByState(state).stream().map(SalonMapper.INSTANCE::toDTO).collect(Collectors.toList());
     }
 
     public List<SalonDTO> getSalonsByCountry(String country) {
-        return salonRepository.findByCountry(country).stream().map(salonMapper::toDTO).collect(Collectors.toList());
+        return salonRepository.findByCountry(country).stream().map(SalonMapper.INSTANCE::toDTO).collect(Collectors.toList());
     }
 
     public List<SalonDTO> getSalonsByPostalCode(String postalCode) {
-        return salonRepository.findByPostalCode(postalCode).stream().map(salonMapper::toDTO).collect(Collectors.toList());
+        return salonRepository.findByPostalCode(postalCode).stream().map(SalonMapper.INSTANCE::toDTO).collect(Collectors.toList());
     }
 
     public List<SalonDTO> getSalonsByAverageRatingAbove(Double rating) {
-        return salonRepository.findByAverageRatingAbove(rating).stream().map(salonMapper::toDTO).collect(Collectors.toList());
+        return salonRepository.findByAverageRatingAbove(rating).stream().map(SalonMapper.INSTANCE::toDTO).collect(Collectors.toList());
     }
 
     public List<SalonDTO> getSalonsByEmail(String email) {
-        return salonRepository.findByEmail(email).stream().map(salonMapper::toDTO).collect(Collectors.toList());
+        return salonRepository.findByEmail(email).stream().map(SalonMapper.INSTANCE::toDTO).collect(Collectors.toList());
     }
 
     public List<SalonDTO> getSalonsByPhoneNumber(String phoneNumber) {
-        return salonRepository.findByPhoneNumber(phoneNumber).stream().map(salonMapper::toDTO).collect(Collectors.toList());
+        return salonRepository.findByPhoneNumber(phoneNumber).stream().map(SalonMapper.INSTANCE::toDTO).collect(Collectors.toList());
     }
 
     public List<SalonDTO> getSalonsByServiceTypeName(String serviceTypeName) {
-        return salonRepository.findByServiceTypeName(serviceTypeName).stream().map(salonMapper::toDTO).collect(Collectors.toList());
+        return salonRepository.findByServiceTypeName(serviceTypeName).stream().map(SalonMapper.INSTANCE::toDTO).collect(Collectors.toList());
     }
 
     public List<SalonDTO> getSalonsByGeoLocationId(Long locationId) {
-        return salonRepository.findByGeoLocationId(locationId).stream().map(salonMapper::toDTO).collect(Collectors.toList());
+        return salonRepository.findByGeoLocationId(locationId).stream().map(SalonMapper.INSTANCE::toDTO).collect(Collectors.toList());
     }
 
     // Add other methods based on your requirements...
 
     public void addSalon(SalonDTO salonDTO) {
-        Salon salon = salonMapper.toEntity(salonDTO);
+        Salon salon = SalonMapper.INSTANCE.toEntity(salonDTO);
         salonRepository.persist(salon);
     }
 
     public void updateSalon(SalonDTO salonDTO) {
-        Salon salon = salonMapper.toEntity(salonDTO);
+        Salon salon = SalonMapper.INSTANCE.toEntity(salonDTO);
         salonRepository.persist(salon);
     }
 

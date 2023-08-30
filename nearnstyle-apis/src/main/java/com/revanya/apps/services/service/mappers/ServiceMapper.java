@@ -3,12 +3,14 @@ package com.revanya.apps.services.service.mappers;
 
 import com.revanya.apps.services.service.dto.ServiceDTO;
 import com.revanya.apps.services.service.entities.Service;
+import jakarta.inject.Singleton;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "jakarta")
+@Singleton
 public interface ServiceMapper {
 
     ServiceMapper INSTANCE = Mappers.getMapper(ServiceMapper.class);
