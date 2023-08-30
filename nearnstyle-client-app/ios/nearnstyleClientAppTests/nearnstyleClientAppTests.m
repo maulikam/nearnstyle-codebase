@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface nearnstyleClientAppTests : XCTestCase
+@interface nearnstyleclientappTests : XCTestCase
 
 @end
 
-@implementation nearnstyleClientAppTests
+@implementation nearnstyleclientappTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {
