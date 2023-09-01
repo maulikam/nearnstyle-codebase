@@ -1,9 +1,8 @@
 import React from 'react';
 import {
-  SafeAreaView,
   FlatList,
   StyleSheet,
-  StatusBar
+  View
 } from 'react-native';
 import { StoreItem } from './storeItem';
 import { Store } from './store';
@@ -38,19 +37,18 @@ export const StoreList: React.FC = () => {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <FlatList
         data={data}
         renderItem={({ item }) => <StoreItem {...item} />}
         keyExtractor={item => item.id.toString()}
       />
-    </SafeAreaView>
+    </View>
   )
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: lightColors.background,
-    marginTop: StatusBar.currentHeight || 0,
   },
 });

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Platform } from 'react-native';
 import { lightColors, createTheme, ThemeProvider } from '@rneui/themed';
-import { StoreList } from './src/module/store/storeList';
+import { StoreSelection } from 'module/store/storeSelection';
 
 const theme = createTheme({
   lightColors: {
@@ -12,14 +12,13 @@ const theme = createTheme({
     }),
     primary:'#512DA8',
     secondary:'#FF5722',
-    
   },
   mode:'light',
 });
 function App(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
-      <StoreList />
+      <StoreSelection />
     </ThemeProvider>
   );
 }
