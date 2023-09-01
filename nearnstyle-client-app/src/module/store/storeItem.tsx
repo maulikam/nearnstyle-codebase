@@ -15,7 +15,7 @@ export const StoreItem: React.FC<Store> = (item: Store) => {
             <View style={styles.detailsContainer}>
                 <Text style={styles.name}>{item.name}</Text>
                 <View style={styles.addressContainer}>
-                    <Icon name='location' />
+                    {/* <Icon name='location' /> */}
                     <Text numberOfLines={1} style={styles.address}>{item.address}</Text>
                 </View>
                 <Button buttonStyle={styles.bookBtnInner} containerStyle={styles.bookBtn}>Book</Button>
