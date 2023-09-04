@@ -97,6 +97,11 @@
       <version>1.5.3.Final</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-openapi</artifactId>
+    </dependency>
+
     <!--    <dependency>-->
     <!--      <groupId>io.smallrye</groupId>-->
     <!--      <artifactId>smallrye-jwt-build</artifactId>-->
