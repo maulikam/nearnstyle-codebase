@@ -5,7 +5,9 @@ import com.revanya.apps.services.booking.service.BookingService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.*;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import java.util.List;
 
@@ -13,6 +15,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @RolesAllowed({"Admin", "Salon Admin", "User"})
+@Tag(name = "Bookings", description = "API for managing bookings for salons.")
 public class BookingResource {
 
     @Inject
