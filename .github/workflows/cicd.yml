@@ -52,8 +52,8 @@ jobs:
       - name: Docker Info
         run: docker info
       
-      - name: Pull image from docker hub
-        run: docker pull mightythor99/nearnstyle-codebase
+#      - name: Pull image from docker hub
+#        run: docker pull mightythor99/nearnstyle-codebase
       
       - name: Delete old container
         run: docker rm -f nearnstyle-apis-container || true
