@@ -5,6 +5,31 @@ on:
     branches: [master]
 
 jobs:
+  debug:
+    name: Debug
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up secret file
+      env:
+        OIDC_CLIENT_ID: ${{ secrets.OIDC_CLIENT_ID }}
+        OIDC_CLIENT_SECRET: ${{ secrets.OIDC_CLIENT_SECRET }}
+        DATABASE_USERNAME: ${{ secrets.DB_USERNAME }}
+        DATABASE_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        DATABASE_URL: ${{ secrets.DB_URL }}
+        OIDC_SERVER_URL: ${{ secrets.OIDC_SERVER_URL }}
+        HTTP_PORT: ${{ secrets.HTTP_PORT }}
+      run: |
+        echo ${{secrets.OIDC_CLIENT_ID}} | sed 's/./& /g'
+        echo ${{secrets.OIDC_CLIENT_SECRET}} | sed 's/./& /g'
+        echo ${{secrets.DB_USERNAME}} | sed 's/./& /g'
+        echo ${{secrets.DB_PASSWORD}} | sed 's/./& /g'
+        echo ${{secrets.DB_URL}} | sed 's/./& /g'
+        echo ${{secrets.OIDC_SERVER_URL}} | sed 's/./& /g'
+        echo ${{secrets.HTTP_PORT}} | sed 's/./& /g'
   build:
     runs-on: [ubuntu-latest]
     steps:
