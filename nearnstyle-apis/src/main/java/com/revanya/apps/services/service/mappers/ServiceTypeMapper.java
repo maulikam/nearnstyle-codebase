@@ -3,50 +3,52 @@ package com.revanya.apps.services.service.mappers;
 import com.revanya.apps.services.service.dto.ServiceTypeDTO;
 import com.revanya.apps.services.service.entities.Service;
 import com.revanya.apps.services.service.entities.ServiceType;
-import com.revanya.apps.services.service.service.ServiceService;
-import jakarta.inject.Inject;
-import jakarta.inject.Singleton;
-import org.mapstruct.Mapper;
-import org.mapstruct.AfterMapping;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.factory.Mappers;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "jakarta", uses = {ServiceMapper.class})
-@Singleton
-public abstract class ServiceTypeMapper {
+public class ServiceTypeMapper {
 
-    public static ServiceTypeMapper INSTANCE = Mappers.getMapper(ServiceTypeMapper.class);
+    public static ServiceTypeDTO toDTO(ServiceType serviceType) {
+        ServiceTypeDTO dto = new ServiceTypeDTO();
 
-    @Inject
-    ServiceService serviceService;  // Inject the service
+        dto.setId(serviceType.getId());
+        dto.setName(serviceType.getName());
+        dto.setDescription(serviceType.getDescription());
+        dto.setAvgDuration(serviceType.getAvgDuration());
+        dto.setSpecialEquipmentRequired(serviceType.getSpecialEquipmentRequired());
+        dto.setIconUrl(serviceType.getIconUrl());
+        dto.setSalonId(serviceType.getSalon() != null ? serviceType.getSalon().getId() : null);
+        dto.setServiceIds(serviceType.getServices() != null ? serviceType.getServices().stream().map(Service::getId).collect(Collectors.toSet()) : null);
 
-    public abstract ServiceTypeDTO toDTO(ServiceType serviceType);
-
-    public abstract ServiceType toEntity(ServiceTypeDTO dto);
-
-    @AfterMapping
-    protected void toDTOAfterMapping(ServiceType serviceType, @MappingTarget ServiceTypeDTO dto) {
-        if (serviceType.getServices() != null) {
-            dto.setServiceIds(serviceType.getServices().stream()
-                    .map(Service::getId)
-                    .collect(Collectors.toSet()));
-        }
+        return dto;
     }
 
-    @AfterMapping
-    protected void toEntityAfterMapping(ServiceTypeDTO dto, @MappingTarget ServiceType serviceType) {
-        if (dto.getServiceIds() != null) {
-            List<Long> serviceIds = new ArrayList<>(dto.getServiceIds());
-            List<Service> services = serviceService.findServicesByIds(serviceIds);
-            serviceType.setServices(new HashSet<>(services));
-        }
+    public static ServiceType toEntity(ServiceTypeDTO dto) {
+        ServiceType serviceType = new ServiceType();
+
+        serviceType.setId(dto.getId());
+        serviceType.setName(dto.getName());
+        serviceType.setDescription(dto.getDescription());
+        serviceType.setAvgDuration(dto.getAvgDuration());
+        serviceType.setSpecialEquipmentRequired(dto.getSpecialEquipmentRequired());
+        serviceType.setIconUrl(dto.getIconUrl());
+
+        // NOTE: Setting salon and services is not straightforward from DTO. You might need services to fetch them.
+        // serviceType.setSalon(...);
+        // serviceType.setServices(...);
+
+        return serviceType;
     }
 
+    public static void updateServiceTypeFromDTO(ServiceTypeDTO dto, ServiceType serviceType) {
+        serviceType.setName(dto.getName());
+        serviceType.setDescription(dto.getDescription());
+        serviceType.setAvgDuration(dto.getAvgDuration());
+        serviceType.setSpecialEquipmentRequired(dto.getSpecialEquipmentRequired());
+        serviceType.setIconUrl(dto.getIconUrl());
+
+        // NOTE: Again, setting salon and services will require additional steps.
+        // serviceType.setSalon(...);
+        // serviceType.setServices(...);
+    }
 }
-
-

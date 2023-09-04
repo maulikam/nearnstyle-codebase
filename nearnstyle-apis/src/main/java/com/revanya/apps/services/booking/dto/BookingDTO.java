@@ -1,6 +1,7 @@
 package com.revanya.apps.services.booking.dto;
 
 
+import com.revanya.apps.services.booking.entities.Booking;
 import lombok.Data;
 
 import java.util.Date;
@@ -19,7 +20,7 @@ public class BookingDTO {
 
     private Date serviceDate;
 
-    private BookingStatus status;
+    private Booking.BookingStatus status;
 
     private List<Long> serviceIds;  // Assuming you'll have some mechanism to get service details using these IDs
 
@@ -27,7 +28,7 @@ public class BookingDTO {
 
     private String specialInstructions;
 
-    private PaymentMode paymentMode;
+    private Booking.PaymentMode paymentMode;
 
     private Double discount;
 
@@ -37,12 +38,6 @@ public class BookingDTO {
 
     private String userFeedback;
 
-    public enum BookingStatus {
-        PENDING, CONFIRMED, CANCELED, COMPLETED
-    }
 
-    public enum PaymentMode {
-        CASH, CREDIT_CARD, DEBIT_CARD, WALLET, UPI
-    }
 }
 

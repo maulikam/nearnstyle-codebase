@@ -20,19 +20,19 @@ public class ServiceService {
 
     public ServiceDTO getService(Long id) {
         Service service = serviceRepository.findById(id);
-        return ServiceMapper.INSTANCE.toDTO(service);
+        return ServiceMapper.toDTO(service);
     }
 
     public List<ServiceDTO> getAllServices() {
         return serviceRepository.listAll().stream()
-                .map(ServiceMapper.INSTANCE::toDTO)
+                .map(ServiceMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
     public ServiceDTO createService(ServiceDTO serviceDTO) {
-        Service service = ServiceMapper.INSTANCE.toEntity(serviceDTO);
+        Service service = ServiceMapper.toEntity(serviceDTO);
         serviceRepository.persist(service);
-        return ServiceMapper.INSTANCE.toDTO(service);
+        return ServiceMapper.toDTO(service);
     }
 
     public void deleteService(Long id) {
@@ -51,11 +51,11 @@ public class ServiceService {
         }
 
         // Map the serviceDTO to the service entity and save
-        ServiceMapper.INSTANCE.updateServiceFromDTO(serviceDTO, service);
+        ServiceMapper.updateServiceFromDTO(serviceDTO, service);
         serviceRepository.persist(service);
 
         // Return the updated service as a DTO
-        return ServiceMapper.INSTANCE.toDTO(service);
+        return ServiceMapper.toDTO(service);
     }
 
     public List<ServiceDTO> searchServicesByName(String name) {
@@ -63,7 +63,7 @@ public class ServiceService {
         List<Service> services = serviceRepository.findByName(name);
 
         // Convert the list of service entities to DTOs
-        return services.stream().map(ServiceMapper.INSTANCE::toDTO).collect(Collectors.toList());
+        return services.stream().map(ServiceMapper::toDTO).collect(Collectors.toList());
     }
 
     public List<ServiceDTO> getServicesAboveRating(Float threshold) {
@@ -71,7 +71,7 @@ public class ServiceService {
         List<Service> services = serviceRepository.findByRatingAbove(threshold);
 
         // Convert the list of service entities to DTOs
-        return services.stream().map(ServiceMapper.INSTANCE::toDTO).collect(Collectors.toList());
+        return services.stream().map(ServiceMapper::toDTO).collect(Collectors.toList());
     }
 
 
@@ -80,7 +80,7 @@ public class ServiceService {
         List<Service> services = serviceRepository.findByDuration(duration);
 
         // Convert the list of service entities to DTOs
-        return services.stream().map(ServiceMapper.INSTANCE::toDTO).collect(Collectors.toList());
+        return services.stream().map(ServiceMapper::toDTO).collect(Collectors.toList());
     }
 
 

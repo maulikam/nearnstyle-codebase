@@ -39,7 +39,7 @@ public class BookingService {
 
     @Transactional
     public BookingDTO createBooking(BookingDTO bookingDTO) {
-        Booking booking = BookingMapper.INSTANCE.toEntity(bookingDTO);
+        Booking booking = BookingMapper.toEntity(bookingDTO);
 
         Optional<User> userOptional = userRepository.findByIdOptional(bookingDTO.getUserId());
         User user = userOptional.orElseThrow(() -> new IllegalArgumentException("User not found"));
@@ -55,7 +55,7 @@ public class BookingService {
 
         bookingRepository.persist(booking); // Persist the booking
 
-        return BookingMapper.INSTANCE.toDTO(booking); // Return the DTO representation of the saved booking
+        return BookingMapper.toDTO(booking); // Return the DTO representation of the saved booking
     }
 
     @Transactional
@@ -63,7 +63,7 @@ public class BookingService {
         Booking existingBooking = bookingRepository.findByIdOptional(bookingId)
                 .orElseThrow(() -> new IllegalArgumentException("Booking not found"));
 
-        Booking updatedBooking = BookingMapper.INSTANCE.toEntity(bookingDTO);
+        Booking updatedBooking = BookingMapper.toEntity(bookingDTO);
 
         // Update booking properties
         existingBooking.setBookingDate(updatedBooking.getBookingDate());
@@ -79,7 +79,7 @@ public class BookingService {
         }
 
         bookingRepository.persist(existingBooking); // Use persist instead of merge
-        return BookingMapper.INSTANCE.toDTO(existingBooking);
+        return BookingMapper.toDTO(existingBooking);
     }
 
 
@@ -96,7 +96,7 @@ public class BookingService {
         Optional<Booking> bookingOptional = bookingRepository.findByIdOptional(bookingId);
         Booking booking = bookingOptional.orElseThrow(() -> new IllegalArgumentException("Booking not found"));
 
-        return BookingMapper.INSTANCE.toDTO(booking);
+        return BookingMapper.toDTO(booking);
     }
 
 
@@ -104,7 +104,7 @@ public class BookingService {
         List<Booking> bookings = bookingRepository.listAll();
 
         return bookings.stream()
-                .map(BookingMapper.INSTANCE::toDTO)
+                .map(BookingMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
