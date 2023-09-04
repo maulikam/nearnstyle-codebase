@@ -1,5 +1,5 @@
-FROM eclipse-temurin:17-jre-alpine
+FROM alpine:latest
 WORKDIR /app
-COPY nearnstyle-apis/target/nearnstyle-apis-1.0.0-SNAPSHOT.jar /app/
+COPY nearnstyle-apis/target/*-runner /app/application
 EXPOSE 8080
-CMD ["java", "-jar", "./nearnstyle-apis-1.0.0-SNAPSHOT.jar"]
+CMD ["/app/application"]
