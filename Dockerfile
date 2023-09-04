@@ -18,7 +18,7 @@ FROM quay.io/quarkus/quarkus-micro-image:2.0
 WORKDIR /app
 
 # Copy the native executable from the build container
-COPY --from=build /code/nearnstyle-apis/target/*-runner /app/application
+COPY --from=build /code/target/*-runner /app/application
 
 # set up permissions for user `1001`
 RUN chmod 775 /app /app/application \
