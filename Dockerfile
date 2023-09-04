@@ -1,24 +1,15 @@
-## Stage 1 : build with maven builder image with native capabilities
+## Stage 1 : Copy the built application
 FROM quay.io/quarkus/ubi-quarkus-mandrel-builder-image:jdk-17 AS build
 WORKDIR /code
-
-# Copying maven wrapper and the pom.xml first optimizes the Docker build cache
-COPY nearnstyle-apis/mvnw /code/mvnw
-COPY nearnstyle-apis/.mvn /code/.mvn
-COPY nearnstyle-apis/pom.xml /code/
-
-# Use Quarkus user for building
-USER quarkus
-RUN ./mvnw -B org.apache.maven.plugins:maven-dependency-plugin:3.1.2:go-offline
-COPY nearnstyle-apis/src /code/src
-RUN ./mvnw package -Dnative -DskipTests
+COPY nearnstyle-apis/target/*-runner /code/application
 
 ## Stage 2 : create the docker final image
 FROM quay.io/quarkus/quarkus-micro-image:2.0
 WORKDIR /app
 
 # Copy the native executable from the build container
-COPY --from=build /code/target/*-runner /app/application
+COPY --from=build /code/application /app/application
+
 
 # set up permissions for user `1001`
 RUN chmod 775 /app /app/application \
