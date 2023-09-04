@@ -22,44 +22,44 @@ public class UserService {
 
     public UserDTO findByUsername(String username) {
         User user = userRepository.findByUsername(username);
-        return UserMapper.INSTANCE.toDTO(user);
+        return UserMapper.toDTO(user);
     }
 
     public UserDTO findByEmail(String email) {
         User user = userRepository.findByEmail(email);
-        return UserMapper.INSTANCE.toDTO(user);
+        return UserMapper.toDTO(user);
     }
 
     public List<UserDTO> findByCity(String city) {
         List<User> users = userRepository.findByCity(city);
-        return users.stream().map(UserMapper.INSTANCE::toDTO).collect(Collectors.toList());
+        return users.stream().map(UserMapper::toDTO).collect(Collectors.toList());
     }
 
     public List<UserDTO> findUsersRegisteredAfter(Date date) {
         List<User> users = userRepository.findUsersRegisteredAfter(date);
-        return users.stream().map(UserMapper.INSTANCE::toDTO).collect(Collectors.toList());
+        return users.stream().map(UserMapper::toDTO).collect(Collectors.toList());
     }
 
     public List<UserDTO> findByRoleName(String roleName) {
         List<User> users = userRepository.findByRoleName(roleName);
-        return users.stream().map(UserMapper.INSTANCE::toDTO).collect(Collectors.toList());
+        return users.stream().map(UserMapper::toDTO).collect(Collectors.toList());
     }
 
     public UserDTO findByMobileNumber(String mobileNumber) {
         User user = userRepository.findByMobileNumber(mobileNumber);
-        return UserMapper.INSTANCE.toDTO(user);
+        return UserMapper.toDTO(user);
     }
 
     public List<UserDTO> findUsersWithBookings() {
         List<User> users = userRepository.findUsersWithBookings();
-        return users.stream().map(UserMapper.INSTANCE::toDTO).collect(Collectors.toList());
+        return users.stream().map(UserMapper::toDTO).collect(Collectors.toList());
     }
 
     @Transactional
     public UserDTO createUser(UserDTO userDTO) {
-        User user = UserMapper.INSTANCE.toEntity(userDTO);
+        User user = UserMapper.toEntity(userDTO);
         userRepository.persist(user);
-        return UserMapper.INSTANCE.toDTO(user);
+        return UserMapper.toDTO(user);
     }
 
     @Transactional
@@ -67,10 +67,10 @@ public class UserService {
         if (userRepository.findById(userId) == null) {
             throw new IllegalArgumentException("User with ID " + userId + " not found.");
         }
-        User user = UserMapper.INSTANCE.toEntity(userDTO);
+        User user = UserMapper.toEntity(userDTO);
         user.setId(userId); // Make sure the ID is set to avoid creating a new user
         userRepository.getEntityManager().merge(user);
-        return UserMapper.INSTANCE.toDTO(user);
+        return UserMapper.toDTO(user);
     }
 
     @Transactional

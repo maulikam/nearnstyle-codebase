@@ -20,19 +20,19 @@ public class ServiceTypeService {
 
     public ServiceTypeDTO getServiceType(Long id) {
         ServiceType serviceType = serviceTypeRepository.findById(id);
-        return ServiceTypeMapper.INSTANCE.toDTO(serviceType);
+        return ServiceTypeMapper.toDTO(serviceType);
     }
 
     public List<ServiceTypeDTO> getAllServiceTypes() {
         return serviceTypeRepository.listAll().stream()
-                .map(ServiceTypeMapper.INSTANCE::toDTO)
+                .map(ServiceTypeMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
     public ServiceTypeDTO createServiceType(ServiceTypeDTO serviceTypeDTO) {
-        ServiceType serviceType = ServiceTypeMapper.INSTANCE.toEntity(serviceTypeDTO);
+        ServiceType serviceType = ServiceTypeMapper.toEntity(serviceTypeDTO);
         serviceTypeRepository.persist(serviceType);
-        return ServiceTypeMapper.INSTANCE.toDTO(serviceType);
+        return ServiceTypeMapper.toDTO(serviceType);
     }
 
     public void deleteServiceType(Long id) {

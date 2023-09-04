@@ -19,9 +19,9 @@ public class GeoLocationService {
     GeoLocationRepository geoLocationRepository;
 
     public GeoLocationDTO createGeoLocation(GeoLocationDTO geoLocationDTO) {
-        GeoLocation geoLocation = GeoLocationMapper.INSTANCE.toEntity(geoLocationDTO);
+        GeoLocation geoLocation = GeoLocationMapper.toEntity(geoLocationDTO);
         geoLocationRepository.persist(geoLocation);
-        return GeoLocationMapper.INSTANCE.toDTO(geoLocation);
+        return GeoLocationMapper.toDTO(geoLocation);
     }
 
 
@@ -30,10 +30,10 @@ public class GeoLocationService {
         if (existingGeoLocation == null) {
             throw new IllegalArgumentException("GeoLocation not found");
         }
-        GeoLocation updatedGeoLocation = GeoLocationMapper.INSTANCE.toEntity(geoLocationDTO);
+        GeoLocation updatedGeoLocation = GeoLocationMapper.toEntity(geoLocationDTO);
         updatedGeoLocation.setId(id);
         GeoLocation mergedGeoLocation = geoLocationRepository.getEntityManager().merge(updatedGeoLocation);
-        return GeoLocationMapper.INSTANCE.toDTO(mergedGeoLocation);
+        return GeoLocationMapper.toDTO(mergedGeoLocation);
     }
 
     public void deleteGeoLocation(Long id) {
@@ -48,7 +48,7 @@ public class GeoLocationService {
         if (geoLocation == null) {
             throw new IllegalArgumentException("GeoLocation not found");
         }
-        return GeoLocationMapper.INSTANCE.toDTO(geoLocation);
+        return GeoLocationMapper.toDTO(geoLocation);
     }
 
     public List<GeoLocationDTO> getAllGeoLocations() {
@@ -56,7 +56,7 @@ public class GeoLocationService {
 
         List<GeoLocationDTO> geoLocationDTOs = new ArrayList<>();
         for (GeoLocation geoLocation : geoLocations) {
-            geoLocationDTOs.add(GeoLocationMapper.INSTANCE.toDTO(geoLocation));
+            geoLocationDTOs.add(GeoLocationMapper.toDTO(geoLocation));
         }
 
         return geoLocationDTOs;

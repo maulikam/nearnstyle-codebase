@@ -2,28 +2,51 @@ package com.revanya.apps.services.review.mappers;
 
 import com.revanya.apps.services.review.dto.ReviewDTO;
 import com.revanya.apps.services.review.entities.Review;
-import jakarta.inject.Singleton;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
+import com.revanya.apps.services.salon.entities.Salon;
+import com.revanya.apps.services.user.entities.User;
 
-@Mapper(componentModel = "jakarta")
-@Singleton
-public interface ReviewMapper {
+public class ReviewMapper {
 
-    ReviewMapper INSTANCE = Mappers.getMapper(ReviewMapper.class);
+    public static Review toEntity(ReviewDTO dto) {
+        if (dto == null) {
+            return null;
+        }
 
-    @Mapping(source = "user.id", target = "userId")
-    @Mapping(source = "salon.id", target = "salonId")
-    // Optional: if you want to include user name and salon name in the DTO
-    @Mapping(source = "user.username", target = "userName")
-    @Mapping(source = "salon.name", target = "salonName")
-    ReviewDTO toDTO(Review review);
+        Review review = new Review();
 
-    @Mapping(source = "userId", target = "user.id")
-    @Mapping(source = "salonId", target = "salon.id")
-    @Mapping(target = "user.username", ignore = true) // We ignore these fields when mapping back to entity
-    @Mapping(target = "salon.name", ignore = true)
-    Review toEntity(ReviewDTO dto);
+        review.setId(dto.getId());
+
+        User user = new User();
+        user.setId(dto.getUserId());  // Assuming User has a setId() method.
+        review.setUser(user);         // Set user reference with only ID, fetch or merge logic will be in service layer.
+
+        Salon salon = new Salon();
+        salon.setId(dto.getSalonId()); // Assuming Salon has a setId() method.
+        review.setSalon(salon);        // Set salon reference with only ID.
+
+        review.setRating(dto.getRating());
+        review.setComment(dto.getComment());
+        review.setDate(dto.getDate());
+
+        return review;
+    }
+
+    public static ReviewDTO toDTO(Review entity) {
+        if (entity == null) {
+            return null;
+        }
+
+        ReviewDTO dto = new ReviewDTO();
+
+        dto.setId(entity.getId());
+        dto.setUserId(entity.getUser().getId());
+        dto.setSalonId(entity.getSalon().getId());
+        dto.setRating(entity.getRating());
+        dto.setComment(entity.getComment());
+        dto.setDate(entity.getDate());
+        dto.setUserName(entity.getUser().getUsername());  // Assuming User has a getName() method.
+        dto.setSalonName(entity.getSalon().getName()); // Assuming Salon has a getName() method.
+
+        return dto;
+    }
 }
-
