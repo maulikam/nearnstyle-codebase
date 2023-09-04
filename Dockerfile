@@ -11,7 +11,7 @@ COPY nearnstyle-apis/pom.xml /code/
 USER quarkus
 RUN ./mvnw -B org.apache.maven.plugins:maven-dependency-plugin:3.1.2:go-offline
 COPY nearnstyle-apis/src /code/src
-RUN ./mvnw package -Dnative
+RUN ./mvnw package -Dnative -DskipTests
 
 ## Stage 2 : create the docker final image
 FROM quay.io/quarkus/quarkus-micro-image:2.0
